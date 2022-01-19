@@ -14,9 +14,17 @@ function PokeDex() {
   const baseUrl = "https://pokeapi.co/api/v2/pokemon/"
   const [url, setUrl] = useState(baseUrl);
 
+  // const addPokemon = async name => {
+  //   const response = await axios.get(
+  //     `https://pokeapi.co/api/v2/pokemon/${name}/`
+  //   );
+  //   setPokemon(pokemon => [...pokemon, { ...response.data, id: uuid() }]);
+  // };
+
   const addPokemon = () => {
-    setUrl(`${baseUrl}${name};`)
-  }
+    setUrl(`${baseUrl}${name};`);
+    addCard(url);
+  };
 
   return (
     <div className="PokeDex">
