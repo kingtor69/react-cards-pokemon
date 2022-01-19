@@ -1,43 +1,15 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import uuid from "uuid";
-import axios from 'axios';
+import axios from "axios";
 
-const useDeal = (url) => {
-  const [response, setResponse] = useState(null);
-  const [error, setError] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+const useDeal = () => {
   const [cards, setCards] = useState([]);
-  const [message, setMessage] = useState(null)
-
-  useEffect(() => {
-    const axiosCall = async() => {
-      try{
-        const res = await axios.get(url);
-        const json = await res.json();
-        setResponse(json);
-      } catch (e) {
-        setError(e);
-      };
-      setIsLoading(false);
-    };
-    axiosCall();
-  }, [url, setIsLoading]);
-
-  const addCard = (card) => {
-    setCards(cards => [...cards, { ...card, id: uuid() }]);
-    return cards;
+  const addCard = async (url) => {
+    const response = await axios.get(url);
+    setCards(cards => [...cards, { ...response.data, id: uuid() }]);
   };
 
-  if (error) {
-    setMessage("Sorry, something went wrong.")
-  } else if (isLoading) {
-    setMessage("loading...")
-  } else {
-    setMessage(null);
-    addCard(response.data);
-  };
-
-  return [message, cards, addCard];
+  return [cards, addCard]
 };
 
 export default useDeal;
