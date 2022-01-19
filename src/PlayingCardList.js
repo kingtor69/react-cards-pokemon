@@ -1,18 +1,24 @@
 import React from "react";
+import useDeal from './hooks/useDeal';
 import PlayingCard from "./PlayingCard";
-import useDeal from "./hooks/useDealBOGUS";
 import "./PlayingCardList.css";
 
 /* Renders a list of playing cards.
  * Can also add a new card at random. */
 function CardTable() {
-  const [ message, cards, addCard ] = useDeal();
+  const [message, cards, addCard] = useDeal();
+  const url = "https://deckofcardsapi.com/api/deck/new/draw/";
+  
+  const dealCard = () => {
+    addCard(url);
+  }
 
   return (
     <div className="PlayingCardList">
       <h3>Pick a card, any card!</h3>
       <div>
-        <button onClick={addCard}>Add a playing card!</button>
+        <button onClick={dealCard}>Add a playing card!</button>
+        {message ? <h4>{message}</h4> : <h4> </h4> }
       </div>
       <div className="PlayingCardList-card-area">
         <h4>{ message ? message : '' }</h4>
