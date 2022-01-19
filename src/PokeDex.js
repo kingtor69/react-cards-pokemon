@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-// import { v4 as uuid } from "uuid";
+import React from "react";
 import PokemonSelect from "./PokemonSelect";
 import PokemonCard from "./PokemonCard";
 import useDeal from './hooks/useDeal';
@@ -11,22 +10,9 @@ import "./PokeDex.css";
 function PokeDex() {
   const [pokemon, addCard] = useDeal();
   const baseUrl = "https://pokeapi.co/api/v2/pokemon/"
-  const [url, setUrl] = useState(baseUrl);
-
-  // const addPokemon = async name => {
-  //   const response = await axios.get(
-  //     `https://pokeapi.co/api/v2/pokemon/${name}/`
-  //   );
-  //   setPokemon(pokemon => [...pokemon, { ...response.data, id: uuid() }]);
-  // };
 
   const addPokemon = name => {
-    try {
-      setUrl(`${baseUrl}${name}/`);
-      addCard(url);
-    } catch(e) {
-      console.log('error in this mofo, by which I mean addPokemon')
-    }
+    addCard(`${baseUrl}${name}/`);
   };
 
   return (
